@@ -1,16 +1,10 @@
-import pyautogui
-import time
+import subprocess
 
-def open_wifi_settings():
-    try:
-        # Open Android settings and navigate to Wi-Fi settings
-        pyautogui.hotkey('ctrl', 'esc')  # Open settings (assuming it opens with the home button)
-        time.sleep(1)  # Wait for settings to open
-        pyautogui.press('tab', presses=2)  # Navigate to the Wi-Fi tab
-        pyautogui.press('enter')  # Enter Wi-Fi settings
-        print('Wi-Fi settings opened successfully.')
-    except Exception as e:
-        print('Error:', e)
-
-# Call the function to open Wi-Fi settings
-open_wifi_settings()
+# Check if the termux-api package is installed
+try:
+    subprocess.run(['termux-api', 'wifi-enable'])
+    print('Wi-Fi settings opened successfully.')
+except FileNotFoundError:
+    print('Error: termux-api package not found. Please install it using "pkg install termux-api".')
+except Exception as e:
+    print('Error:', e)
