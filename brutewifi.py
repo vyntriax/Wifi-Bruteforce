@@ -1,10 +1,16 @@
+
 import subprocess
 
-# Check if the termux-api package is installed
-try:
-    subprocess.run(['termux-api', 'wifi-enable'])
-    print('Wi-Fi settings opened successfully.')
-except FileNotFoundError:
-    print('Error: termux-api package not found. Please install it using "pkg install termux-api".')
-except Exception as e:
-    print('Error:', e)
+def open_wifi_settings():
+    try:
+        # Open Android settings and navigate to Wi-Fi settings
+        subprocess.run(['am', 'start', '-a', 'android.settings.SETTINGS'])
+        subprocess.run(['input', 'keyevent', '20'])
+        subprocess.run(['input', 'keyevent', '20'])
+        subprocess.run(['input', 'keyevent', '66'])
+        print('Wi-Fi settings opened successfully.')
+    except Exception as e:
+        print('Error:', e)
+
+# Call the function to open Wi-Fi settings
+open_wifi_settings()
